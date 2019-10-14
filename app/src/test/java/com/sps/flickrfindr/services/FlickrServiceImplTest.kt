@@ -1,4 +1,4 @@
-package com.sps.flickrfindr.service
+package com.sps.flickrfindr.services
 
 import com.sps.flickrfindr.models.HttpResponse
 import com.sps.flickrfindr.network.NetworkClient
@@ -9,12 +9,12 @@ import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-class FlickrServiceTest {
+class FlickrServiceImplTest {
 
     @Test
     fun `getPhotosWithSearch should call getHttpResponse with search URL and page 1 of 25 results`() {
         val networkClient = mockk<NetworkClient>()
-        val service = FlickrService(networkClient)
+        val service = FlickrServiceImpl(networkClient)
 
         service.getPhotosWithSearch("dog").test()
 
@@ -26,7 +26,7 @@ class FlickrServiceTest {
     @Test
     fun `getPhotosWithSearch should call getHttpResponse with search URL and defined page number and number of results`() {
         val networkClient = mockk<NetworkClient>()
-        val service = FlickrService(networkClient)
+        val service = FlickrServiceImpl(networkClient)
 
         service.getPhotosWithSearch("cats", numResults = 45, pageNumber = 5).test()
 
@@ -40,7 +40,7 @@ class FlickrServiceTest {
         val throwable = Throwable("something went wrong")
         val networkClient = mockk<NetworkClient>()
         every { networkClient.getHttpResponse(any()) } throws throwable
-        val service = FlickrService(networkClient)
+        val service = FlickrServiceImpl(networkClient)
 
         val response = service.getPhotosWithSearch("blah").test()
 
@@ -53,7 +53,7 @@ class FlickrServiceTest {
         val httpResponse = mockk<HttpResponse>()
         every { httpResponse.body } returns "lksajglsadglkdsgjlfajldj"
         every { networkClient.getHttpResponse(any()) } returns httpResponse
-        val service = FlickrService(networkClient)
+        val service = FlickrServiceImpl(networkClient)
 
         val response = service.getPhotosWithSearch("blah").test()
 
@@ -66,7 +66,7 @@ class FlickrServiceTest {
         val httpResponse = mockk<HttpResponse>()
         every { httpResponse.body } returns "{\"photos\":{\"page\":1,\"pages\":125864,\"perpage\":2,\"total\":\"251728\",\"photo\":[{\"id\":\"48882929922\",\"owner\":\"183194104@N02\",\"secret\":\"15e97c86da\",\"server\":\"65535\",\"farm\":66,\"title\":\"Friendship has no rules.\",\"ispublic\":1,\"isfriend\":0,\"isfamily\":0},{\"id\":\"48882922757\",\"owner\":\"182066733@N05\",\"secret\":\"8aec5f0edc\",\"server\":\"65535\",\"farm\":66,\"title\":\"What Dog Breed Are You?\",\"ispublic\":1,\"isfriend\":0,\"isfamily\":0}]},\"stat\":\"ok\"}"
         every { networkClient.getHttpResponse(any()) } returns httpResponse
-        val service = FlickrService(networkClient)
+        val service = FlickrServiceImpl(networkClient)
 
         val response = service.getPhotosWithSearch("dog").test()
 
@@ -81,7 +81,7 @@ class FlickrServiceTest {
     @Test
     fun `getPhotoSizes should call getHttpResponse with photo info URL and photo ID`() {
         val networkClient = mockk<NetworkClient>()
-        val service = FlickrService(networkClient)
+        val service = FlickrServiceImpl(networkClient)
 
         service.getPhotoSizes("123456").test()
 
@@ -95,7 +95,7 @@ class FlickrServiceTest {
         val throwable = Throwable("something went wrong")
         val networkClient = mockk<NetworkClient>()
         every { networkClient.getHttpResponse(any()) } throws throwable
-        val service = FlickrService(networkClient)
+        val service = FlickrServiceImpl(networkClient)
 
         val response = service.getPhotoSizes("636436").test()
 
@@ -108,7 +108,7 @@ class FlickrServiceTest {
         val httpResponse = mockk<HttpResponse>()
         every { httpResponse.body } returns "lksajglsadglkdsgjlfajldj"
         every { networkClient.getHttpResponse(any()) } returns httpResponse
-        val service = FlickrService(networkClient)
+        val service = FlickrServiceImpl(networkClient)
 
         val response = service.getPhotoSizes("7567567").test()
 
@@ -121,7 +121,7 @@ class FlickrServiceTest {
         val httpResponse = mockk<HttpResponse>()
         every { httpResponse.body } returns "{\"sizes\":{\"canblog\":0,\"canprint\":0,\"candownload\":1,\"size\":[{\"label\":\"Square\",\"width\":75,\"height\":75,\"source\":\"https://live.staticflickr.com/65535/48883006117_b208d323b5_s.jpg\",\"url\":\"https://www.flickr.com/photos/30037912@N03/48883006117/sizes/sq/\",\"media\":\"photo\"},{\"label\":\"Large Square\",\"width\":\"150\",\"height\":\"150\",\"source\":\"https://live.staticflickr.com/65535/48883006117_b208d323b5_q.jpg\",\"url\":\"https://www.flickr.com/photos/30037912@N03/48883006117/sizes/q/\",\"media\":\"photo\"},{\"label\":\"Thumbnail\",\"width\":100,\"height\":59,\"source\":\"https://live.staticflickr.com/65535/48883006117_b208d323b5_t.jpg\",\"url\":\"https://www.flickr.com/photos/30037912@N03/48883006117/sizes/t/\",\"media\":\"photo\"},{\"label\":\"Small\",\"width\":\"240\",\"height\":\"141\",\"source\":\"https://live.staticflickr.com/65535/48883006117_b208d323b5_m.jpg\",\"url\":\"https://www.flickr.com/photos/30037912@N03/48883006117/sizes/s/\",\"media\":\"photo\"},{\"label\":\"Small 320\",\"width\":\"320\",\"height\":\"188\",\"source\":\"https://live.staticflickr.com/65535/48883006117_b208d323b5_n.jpg\",\"url\":\"https://www.flickr.com/photos/30037912@N03/48883006117/sizes/n/\",\"media\":\"photo\"},{\"label\":\"Medium\",\"width\":\"500\",\"height\":\"294\",\"source\":\"https://live.staticflickr.com/65535/48883006117_b208d323b5.jpg\",\"url\":\"https://www.flickr.com/photos/30037912@N03/48883006117/sizes/m/\",\"media\":\"photo\"},{\"label\":\"Medium 640\",\"width\":\"640\",\"height\":\"376\",\"source\":\"https://live.staticflickr.com/65535/48883006117_b208d323b5_z.jpg\",\"url\":\"https://www.flickr.com/photos/30037912@N03/48883006117/sizes/z/\",\"media\":\"photo\"},{\"label\":\"Medium 800\",\"width\":\"800\",\"height\":\"470\",\"source\":\"https://live.staticflickr.com/65535/48883006117_b208d323b5_c.jpg\",\"url\":\"https://www.flickr.com/photos/30037912@N03/48883006117/sizes/c/\",\"media\":\"photo\"},{\"label\":\"Large\",\"width\":\"1024\",\"height\":\"602\",\"source\":\"https://live.staticflickr.com/65535/48883006117_b208d323b5_b.jpg\",\"url\":\"https://www.flickr.com/photos/30037912@N03/48883006117/sizes/l/\",\"media\":\"photo\"},{\"label\":\"Original\",\"width\":\"1200\",\"height\":\"705\",\"source\":\"https://live.staticflickr.com/65535/48883006117_133bdcd7ae_o.jpg\",\"url\":\"https://www.flickr.com/photos/30037912@N03/48883006117/sizes/o/\",\"media\":\"photo\"}]},\"stat\":\"ok\"}"
         every { networkClient.getHttpResponse(any()) } returns httpResponse
-        val service = FlickrService(networkClient)
+        val service = FlickrServiceImpl(networkClient)
 
         val response = service.getPhotoSizes("48883006117").test()
 

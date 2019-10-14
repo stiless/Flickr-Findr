@@ -3,4 +3,5 @@
     <string name="app_label">Flickr Findr</string>
     <string name="search_hint">Search For Photos</string>
     <string name="search_view">Search For Photos</string>
+    <string name="title_activity_photo">PhotoActivity</string>
 </resources>

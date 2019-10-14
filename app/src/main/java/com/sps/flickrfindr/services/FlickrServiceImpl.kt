@@ -1,4 +1,4 @@
-package com.sps.flickrfindr.service
+package com.sps.flickrfindr.services
 
 import com.sps.flickrfindr.models.PhotoSizeResponse
 import com.sps.flickrfindr.models.SearchResponse
@@ -6,7 +6,7 @@ import com.sps.flickrfindr.network.NetworkClient
 import com.squareup.moshi.Moshi
 import io.reactivex.Single
 
-class FlickrService(private val networkClient: NetworkClient) {
+class FlickrServiceImpl(private val networkClient: NetworkClient) : FlickrService {
 
     companion object {
         private const val BASE_URL = "https://www.flickr.com/services/rest/"
@@ -19,16 +19,16 @@ class FlickrService(private val networkClient: NetworkClient) {
             "$BASE_URL?method=$PHOTO_SIZE_METHOD&api_key=$API_KEY&format=json&nojsoncallback=1"
     }
 
-    fun getPhotosWithSearch(
+    override fun getPhotosWithSearch(
         searchString: String,
-        numResults: Int = 25,
-        pageNumber: Int = 1
+        numResults: Int,
+        pageNumber: Int
     ): Single<SearchResponse> {
         return Single.fromCallable { networkClient.getHttpResponse("$SEARCH_URL&per_page=$numResults&text=$searchString&page=$pageNumber") }
             .map { deserializeSearchResponse(it.body) }
     }
 
-    fun getPhotoSizes(photoId: String): Single<PhotoSizeResponse> {
+    override fun getPhotoSizes(photoId: String): Single<PhotoSizeResponse> {
         return Single.fromCallable { networkClient.getHttpResponse("$PHOTO_INFO_URL&photo_id=$photoId") }
             .map { deserializePhotoInfoResponse(it.body) }
     }
