@@ -4,19 +4,20 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.sps.flickrfindr.PhotoItemClickListener;
 import com.sps.flickrfindr.PhotoListItem;
 import com.sps.flickrfindr.databinding.ItemPhotoBinding;
 
-import javax.inject.Inject;
-import java.util.Collections;
 import java.util.List;
 
 public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.PhotoListViewHolder> {
 
-    private List<PhotoListItem> photoList = Collections.emptyList();
+    private final List<PhotoListItem> photoList;
+    private final PhotoItemClickListener clickListener;
 
-    @Inject
-    public PhotoListAdapter() {
+    public PhotoListAdapter(List<PhotoListItem> photoList, PhotoItemClickListener clickListener) {
+        this.photoList = photoList;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -31,16 +32,12 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
     public void onBindViewHolder(@NonNull PhotoListViewHolder holder, int position) {
         PhotoListItem item = photoList.get(position);
         holder.bind(item);
+        holder.binding.photoItemContainer.setOnClickListener(view -> clickListener.onClick(view, item.getImageUrl(), item.getTitle()));
     }
 
     @Override
     public int getItemCount() {
         return photoList.size();
-    }
-
-    public void updatePhotoList(List<PhotoListItem> photoList) {
-        this.photoList = photoList;
-        notifyDataSetChanged();
     }
 
     class PhotoListViewHolder extends RecyclerView.ViewHolder {

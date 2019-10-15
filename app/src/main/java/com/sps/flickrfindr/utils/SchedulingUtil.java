@@ -9,7 +9,8 @@ import javax.inject.Inject;
 public class SchedulingUtil {
 
     @Inject
-    public SchedulingUtil() {}
+    public SchedulingUtil() {
+    }
 
     public <T> SingleTransformer<T, T> singleSchedulers() {
         return single -> single.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());

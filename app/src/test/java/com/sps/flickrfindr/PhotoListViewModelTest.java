@@ -1,6 +1,5 @@
 package com.sps.flickrfindr;
 
-import com.sps.flickrfindr.adapters.PhotoListAdapter;
 import com.sps.flickrfindr.respositories.PhotoRepository;
 import com.sps.flickrfindr.utils.SchedulingUtil;
 import io.reactivex.Single;
@@ -18,10 +17,9 @@ public class PhotoListViewModelTest {
         SchedulingUtil schedulingUtil = mock(SchedulingUtil.class);
         when(schedulingUtil.singleSchedulers()).thenReturn(single -> single);
         PhotoRepository photoRepository = mock(PhotoRepository.class);
-        PhotoListAdapter adapter = mock(PhotoListAdapter.class);
         List<PhotoListItem> photoList = Arrays.asList(new PhotoListItem("th", "or", "title"), new PhotoListItem("th", "or", "title"));
         when(photoRepository.getPhotos("dog")).thenReturn(Single.just(photoList));
-        PhotoListViewModel viewModel = new PhotoListViewModel(schedulingUtil, photoRepository, adapter);
+        PhotoListViewModel viewModel = new PhotoListViewModel(schedulingUtil, photoRepository);
 
         viewModel.performSearch("dog");
 
@@ -33,13 +31,10 @@ public class PhotoListViewModelTest {
         SchedulingUtil schedulingUtil = mock(SchedulingUtil.class);
         when(schedulingUtil.singleSchedulers()).thenReturn(single -> single);
         PhotoRepository photoRepository = mock(PhotoRepository.class);
-        PhotoListAdapter adapter = mock(PhotoListAdapter.class);
         List<PhotoListItem> photoList = Arrays.asList(new PhotoListItem("th", "or", "title"), new PhotoListItem("th", "or", "title"));
         when(photoRepository.getPhotos("dog")).thenReturn(Single.just(photoList));
-        PhotoListViewModel viewModel = new PhotoListViewModel(schedulingUtil, photoRepository, adapter);
+        PhotoListViewModel viewModel = new PhotoListViewModel(schedulingUtil, photoRepository);
 
         viewModel.performSearch("dog");
-
-        verify(adapter).updatePhotoList(photoList);
     }
 }

@@ -7,7 +7,11 @@ import dagger.android.AndroidInjectionModule;
 import javax.inject.Singleton;
 
 @Singleton
-@Component(modules = {AndroidInjectionModule.class, AppModule.class, AndroidViewModule.class})
+@Component(modules = {
+        AndroidInjectionModule.class,
+        AppModule.class,
+        AndroidViewModule.class,
+        ViewModelModule.class})
 public interface ApplicationComponent {
 
     void inject(FlickrFindrApplication application);

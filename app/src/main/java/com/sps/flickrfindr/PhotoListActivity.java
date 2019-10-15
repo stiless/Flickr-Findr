@@ -6,16 +6,20 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.sps.flickrfindr.adapters.PhotoListAdapter;
 import com.sps.flickrfindr.databinding.ActivityPhotoListBinding;
 import dagger.android.AndroidInjection;
 
 import javax.inject.Inject;
+import java.util.List;
 
-public class PhotoListActivity extends AppCompatActivity {
+public class PhotoListActivity extends AppCompatActivity implements PhotoItemClickListener {
 
     @Inject
-    PhotoListViewModel viewModel;
+    ViewModelFactory viewModelFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,18 +27,35 @@ public class PhotoListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         ActivityPhotoListBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_photo_list);
+        PhotoListViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(PhotoListViewModel.class);
+        binding.setLifecycleOwner(this);
 
-        binding.setViewModel(viewModel);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        viewModel.getAllPhotos().observe(this, photoListItems -> updateRecyclerView(binding.recyclerView, photoListItems));
 
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(query);
+            }
             viewModel.performSearch(query);
         }
     }
 
-    public void loadPhoto(View view) {
-        startActivity(new Intent(this, PhotoActivity.class));
+    @Override
+    public void onClick(View view, String imageUrl, String title) {
+        Intent intent = new Intent(this, PhotoActivity.class);
+        intent.putExtra("URL", imageUrl);
+        intent.putExtra("TITLE", title);
+        startActivity(intent);
+    }
+
+    private void updateRecyclerView(RecyclerView recyclerView, List<PhotoListItem> photoListItems) {
+        PhotoListAdapter adapter = new PhotoListAdapter(photoListItems, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }

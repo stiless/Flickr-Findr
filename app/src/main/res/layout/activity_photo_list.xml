@@ -2,10 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable name="viewModel"
-                  type="com.sps.flickrfindr.PhotoListViewModel"/>
-    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -15,17 +11,18 @@
                 android:id="@+id/toolbar"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/AppTheme.AppBarOverlay"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler-view"
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical"
                 app:layout_constraintStart_toStartOf="parent"
                 android:overScrollMode="ifContentScrolls"
-                android:adapter="@{viewModel.adapter}"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
