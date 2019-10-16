@@ -19,7 +19,7 @@ class FlickrServiceImplTest {
         service.getPhotosWithSearch("dog").test()
 
         verify {
-            networkClient.getHttpResponse("https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=1508443e49213ff84d566777dc211f2a&format=json&nojsoncallback=1&per_page=25&text=dog&page=1")
+            networkClient.getHttpResponse("https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=1508443e49213ff84d566777dc211f2a&format=json&nojsoncallback=1&safe_search=1&per_page=25&text=dog&page=1")
         }
     }
 
@@ -31,7 +31,7 @@ class FlickrServiceImplTest {
         service.getPhotosWithSearch("cats", numResults = 45, pageNumber = 5).test()
 
         verify {
-            networkClient.getHttpResponse("https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=1508443e49213ff84d566777dc211f2a&format=json&nojsoncallback=1&per_page=45&text=cats&page=5")
+            networkClient.getHttpResponse("https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=1508443e49213ff84d566777dc211f2a&format=json&nojsoncallback=1&safe_search=1&per_page=45&text=cats&page=5")
         }
     }
 
@@ -147,6 +147,6 @@ class FlickrServiceImplTest {
         assertThat(photoSizeResponse.sizes.size[8].source).isEqualTo("https://live.staticflickr.com/65535/48883006117_b208d323b5_b.jpg")
         assertThat(photoSizeResponse.sizes.size[9].label).isEqualTo("Original")
         assertThat(photoSizeResponse.sizes.size[9].source).isEqualTo("https://live.staticflickr.com/65535/48883006117_133bdcd7ae_o.jpg")
-        
+
     }
 }

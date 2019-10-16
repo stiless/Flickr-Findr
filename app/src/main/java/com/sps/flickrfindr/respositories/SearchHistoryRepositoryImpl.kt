@@ -15,7 +15,7 @@ class SearchHistoryRepositoryImpl(private val sharedPreferences: SharedPreferenc
 
     override fun addSearchToHistory(searchString: String) {
         val searchHistory = getSearchHistory().toMutableSet()
-        searchHistory.add(searchString)
+        searchHistory.add(searchString.toUpperCase())
         val editor = sharedPreferences.edit()
         editor.putStringSet("SEARCH_HISTORY", searchHistory)
         editor.apply()
@@ -23,7 +23,7 @@ class SearchHistoryRepositoryImpl(private val sharedPreferences: SharedPreferenc
 
     override fun removeSearchFromHistory(searchString: String) {
         val searchHistory = getSearchHistory().toMutableSet()
-        searchHistory.remove(searchString)
+        searchHistory.remove(searchString.toUpperCase())
         val editor = sharedPreferences.edit()
         editor.putStringSet("SEARCH_HISTORY", searchHistory)
         editor.apply()

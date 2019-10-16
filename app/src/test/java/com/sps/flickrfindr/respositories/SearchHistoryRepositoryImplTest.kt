@@ -34,7 +34,7 @@ class SearchHistoryRepositoryImplTest {
                 "SEARCH_HISTORY",
                 emptySet()
             )
-        } returns setOf("search1", "search2", "search3")
+        } returns setOf("SEARCH1", "SEARCH2", "SEARCH3")
         val editor = mockk<SharedPreferences.Editor>()
         every { sharedPreferences.edit() } returns editor
         every { editor.putStringSet(any(), any())} returns editor
@@ -46,7 +46,7 @@ class SearchHistoryRepositoryImplTest {
         verify {
             sharedPreferences.getStringSet("SEARCH_HISTORY", emptySet())
             sharedPreferences.edit()
-            editor.putStringSet("SEARCH_HISTORY", setOf("search1", "search2", "search3", "search4"))
+            editor.putStringSet("SEARCH_HISTORY", setOf("SEARCH1", "SEARCH2", "SEARCH3", "SEARCH4"))
             editor.apply()
         }
     }
@@ -59,7 +59,7 @@ class SearchHistoryRepositoryImplTest {
                 "SEARCH_HISTORY",
                 emptySet()
             )
-        } returns setOf("search1", "search2", "search3")
+        } returns setOf("SEARCH1", "SEARCH2", "SEARCH3")
         val editor = mockk<SharedPreferences.Editor>()
         every { sharedPreferences.edit() } returns editor
         every { editor.putStringSet(any(), any())} returns editor
@@ -71,7 +71,7 @@ class SearchHistoryRepositoryImplTest {
         verify {
             sharedPreferences.getStringSet("SEARCH_HISTORY", emptySet())
             sharedPreferences.edit()
-            editor.putStringSet("SEARCH_HISTORY", setOf("search1", "search3"))
+            editor.putStringSet("SEARCH_HISTORY", setOf("SEARCH1", "SEARCH3"))
             editor.apply()
         }
     }

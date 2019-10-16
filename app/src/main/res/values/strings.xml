@@ -6,4 +6,8 @@
     <string name="title_activity_photo">PhotoActivity</string>
     <string name="no_results_found_title">No results found</string>
     <string name="no_results_found_body">Please try another search</string>
+    <string name="history_delete_confirmation_title">Delete</string>
+    <string name="history_delete_confirmation_body">Are you sure you want to delete %s from your search history?</string>
+    <string name="no_button">No</string>
+    <string name="yes_button">Yes</string>
 </resources>

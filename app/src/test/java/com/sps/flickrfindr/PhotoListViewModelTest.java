@@ -1,11 +1,14 @@
 package com.sps.flickrfindr;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.Observer;
 import com.sps.flickrfindr.respositories.PhotoRepository;
 import com.sps.flickrfindr.respositories.SearchHistoryRepository;
 import com.sps.flickrfindr.utils.SchedulingUtil;
 import io.reactivex.Single;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.mockito.ArgumentCaptor;
 
 import java.util.Arrays;
@@ -15,6 +18,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
 public class PhotoListViewModelTest {
+
+    @Rule
+    public TestRule rule = new InstantTaskExecutorRule();
 
     @Test
     public void performSearch_should_call_getPhotos() {

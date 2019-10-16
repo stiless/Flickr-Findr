@@ -3,7 +3,6 @@ package com.sps.flickrfindr.di;
 import androidx.lifecycle.ViewModel;
 import com.sps.flickrfindr.MainViewModel;
 import com.sps.flickrfindr.PhotoListViewModel;
-import com.sps.flickrfindr.ViewModelFactory;
 import com.sps.flickrfindr.respositories.PhotoRepository;
 import com.sps.flickrfindr.respositories.SearchHistoryRepository;
 import com.sps.flickrfindr.utils.SchedulingUtil;

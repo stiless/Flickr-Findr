@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.sps.flickrfindr.adapters.PhotoListAdapter;
 import com.sps.flickrfindr.databinding.ActivityPhotoListBinding;
+import com.sps.flickrfindr.di.ViewModelFactory;
+
 import dagger.android.AndroidInjection;
 
 import javax.inject.Inject;

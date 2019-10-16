@@ -1,12 +1,13 @@
-package com.sps.flickrfindr;
+package com.sps.flickrfindr.di;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
-import java.util.Map;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
 

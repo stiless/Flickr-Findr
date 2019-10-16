@@ -14,7 +14,7 @@ class FlickrServiceImpl(private val networkClient: NetworkClient) : FlickrServic
         private const val SEARCH_METHOD = "flickr.photos.search"
         private const val PHOTO_SIZE_METHOD = "flickr.photos.getSizes"
         private const val SEARCH_URL =
-            "$BASE_URL?method=$SEARCH_METHOD&api_key=$API_KEY&format=json&nojsoncallback=1"
+            "$BASE_URL?method=$SEARCH_METHOD&api_key=$API_KEY&format=json&nojsoncallback=1&safe_search=1"
         private const val PHOTO_INFO_URL =
             "$BASE_URL?method=$PHOTO_SIZE_METHOD&api_key=$API_KEY&format=json&nojsoncallback=1"
     }

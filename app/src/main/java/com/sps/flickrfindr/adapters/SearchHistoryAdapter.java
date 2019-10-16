@@ -4,16 +4,24 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.sps.flickrfindr.DeleteSearchHistoryItemClickListener;
+import com.sps.flickrfindr.SearchHistoryItemClickListener;
 import com.sps.flickrfindr.databinding.ItemSearchHistoryBinding;
 
 import java.util.List;
 
-public class SearchHistoryAdapater extends RecyclerView.Adapter<SearchHistoryAdapater.SearchHistoryViewHolder> {
+public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.SearchHistoryViewHolder> {
 
     private final List<String> searchHistory;
+    private final SearchHistoryItemClickListener searchHistoryClickListener;
+    private final DeleteSearchHistoryItemClickListener deleteSearchHistoryItemClickListener;
 
-    public SearchHistoryAdapater(List<String> searchHistory) {
+    public SearchHistoryAdapter(List<String> searchHistory,
+                                SearchHistoryItemClickListener searchHistoryClickListener,
+                                DeleteSearchHistoryItemClickListener deleteSearchHistoryItemClickListener) {
         this.searchHistory = searchHistory;
+        this.searchHistoryClickListener = searchHistoryClickListener;
+        this.deleteSearchHistoryItemClickListener = deleteSearchHistoryItemClickListener;
     }
 
     @NonNull
@@ -28,7 +36,8 @@ public class SearchHistoryAdapater extends RecyclerView.Adapter<SearchHistoryAda
     public void onBindViewHolder(@NonNull SearchHistoryViewHolder holder, int position) {
         String item = searchHistory.get(position);
         holder.bind(item);
-//        holder.binding.photoItemContainer.setOnClickListener(view -> clickListener.onClick(view, item.getImageUrl(), item.getTitle()));
+        holder.binding.searchTitle.setOnClickListener(view -> searchHistoryClickListener.onClickSearchHistoryItem(view, item));
+        holder.binding.closeX.setOnClickListener(view -> deleteSearchHistoryItemClickListener.onClickDeleteSearchHistoryItem(view, item));
     }
 
     @Override

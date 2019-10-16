@@ -21,4 +21,9 @@ public class MainViewModel extends ViewModel {
         searchHistory.setValue(new ArrayList<>(searchHistoryRepository.getSearchHistory()));
         return searchHistory;
     }
+
+    void deleteSearchHistoryItem(String searchString) {
+        searchHistoryRepository.removeSearchFromHistory(searchString);
+        searchHistory.setValue(new ArrayList<>(searchHistoryRepository.getSearchHistory()));
+    }
 }
