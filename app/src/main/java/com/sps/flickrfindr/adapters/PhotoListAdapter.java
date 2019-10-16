@@ -41,7 +41,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
     }
 
     class PhotoListViewHolder extends RecyclerView.ViewHolder {
-        private ItemPhotoBinding binding;
+        private final ItemPhotoBinding binding;
 
         PhotoListViewHolder(ItemPhotoBinding binding) {
             super(binding.getRoot());

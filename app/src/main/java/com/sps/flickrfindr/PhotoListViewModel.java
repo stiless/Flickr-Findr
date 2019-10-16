@@ -15,7 +15,7 @@ public class PhotoListViewModel extends ViewModel {
     private final SchedulingUtil schedulingUtil;
     private final PhotoRepository photoRepository;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private final MutableLiveData<List<PhotoListItem>> photoItemsList = new MutableLiveData<>();
+    private MutableLiveData<List<PhotoListItem>> photoItemsList;
 
     @Inject
     public PhotoListViewModel(SchedulingUtil schedulingUtil,
@@ -27,11 +27,13 @@ public class PhotoListViewModel extends ViewModel {
     void performSearch(String query) {
         compositeDisposable.add(photoRepository.getPhotos(query)
                                                .compose(schedulingUtil.singleSchedulers())
-                                               .subscribe(photoItemsList::setValue, Throwable::printStackTrace));
+                                               .subscribe(photoItemsList::postValue, Throwable::printStackTrace));
     }
 
     LiveData<List<PhotoListItem>> getAllPhotos() {
-        performSearch("cat");
+        if (photoItemsList == null) {
+            photoItemsList = new MutableLiveData<>();
+        }
         return photoItemsList;
     }
 

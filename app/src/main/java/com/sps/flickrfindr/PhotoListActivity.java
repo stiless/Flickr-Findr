@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -23,6 +24,7 @@ public class PhotoListActivity extends AppCompatActivity implements PhotoItemCli
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("CREATING PHOTO LIST ACTIVITY");
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
 
@@ -53,9 +55,18 @@ public class PhotoListActivity extends AppCompatActivity implements PhotoItemCli
     }
 
     private void updateRecyclerView(RecyclerView recyclerView, List<PhotoListItem> photoListItems) {
-        PhotoListAdapter adapter = new PhotoListAdapter(photoListItems, this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        if (photoListItems.size() > 0) {
+            PhotoListAdapter adapter = new PhotoListAdapter(photoListItems, this);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        } else {
+            (new AlertDialog.Builder(this))
+                    .setTitle(R.string.no_results_found_title)
+                    .setMessage(R.string.no_results_found_body)
+                    .setCancelable(true)
+                    .create()
+                    .show();
+        }
     }
 }
