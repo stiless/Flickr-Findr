@@ -13,7 +13,7 @@ class NetworkClientImpl : NetworkClient {
                 responseBody = it.lines()
                     .collect(Collectors.joining(" "))
             }
-            return HttpResponse(responseCode, responseBody)
+            return HttpResponse(responseBody)
         }
     }
 }

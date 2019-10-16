@@ -1,9 +1,11 @@
 package com.sps.flickrfindr.di;
 
 import androidx.lifecycle.ViewModel;
+import com.sps.flickrfindr.MainViewModel;
 import com.sps.flickrfindr.PhotoListViewModel;
 import com.sps.flickrfindr.ViewModelFactory;
 import com.sps.flickrfindr.respositories.PhotoRepository;
+import com.sps.flickrfindr.respositories.SearchHistoryRepository;
 import com.sps.flickrfindr.utils.SchedulingUtil;
 import dagger.MapKey;
 import dagger.Module;
@@ -34,9 +36,17 @@ public class ViewModelModule {
 
     @Provides
     @IntoMap
+    @ViewModelKey(MainViewModel.class)
+    ViewModel providesMainViewModel(SearchHistoryRepository searchHistoryRepository) {
+        return new MainViewModel(searchHistoryRepository);
+    }
+
+    @Provides
+    @IntoMap
     @ViewModelKey(PhotoListViewModel.class)
     ViewModel providesPhotoListViewModel(SchedulingUtil schedulingUtil,
-                                         PhotoRepository photoRepository) {
-        return new PhotoListViewModel(schedulingUtil, photoRepository);
+                                         PhotoRepository photoRepository,
+                                         SearchHistoryRepository searchHistoryRepository) {
+        return new PhotoListViewModel(schedulingUtil, photoRepository, searchHistoryRepository);
     }
 }

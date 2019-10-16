@@ -24,15 +24,12 @@ public class PhotoListActivity extends AppCompatActivity implements PhotoItemCli
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("CREATING PHOTO LIST ACTIVITY");
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
 
         ActivityPhotoListBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_photo_list);
         PhotoListViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(PhotoListViewModel.class);
         binding.setLifecycleOwner(this);
-
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         viewModel.getAllPhotos().observe(this, photoListItems -> updateRecyclerView(binding.recyclerView, photoListItems));
 
