@@ -12,6 +12,8 @@ import java.util.List;
 
 public class PhotoListViewModel extends ViewModel {
 
+    public MutableLiveData<Boolean> isProgressBarVisible = new MutableLiveData<>(false);
+
     private final SchedulingUtil schedulingUtil;
     private final PhotoRepository photoRepository;
     private final SearchHistoryRepository searchHistoryRepository;
@@ -27,10 +29,14 @@ public class PhotoListViewModel extends ViewModel {
     }
 
     void performSearch(String query) {
+        isProgressBarVisible.setValue(true);
         searchHistoryRepository.addSearchToHistory(query);
         compositeDisposable.add(photoRepository.getPhotos(query)
                                                .compose(schedulingUtil.singleSchedulers())
-                                               .subscribe(photoItemsList::postValue, Throwable::printStackTrace));
+                                               .subscribe(photoList -> {
+                                                   isProgressBarVisible.setValue(false);
+                                                   photoItemsList.setValue(photoList);
+                                               }, Throwable::printStackTrace));
     }
 
     LiveData<List<PhotoListItem>> getAllPhotos() {

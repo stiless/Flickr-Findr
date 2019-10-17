@@ -32,6 +32,7 @@ public class PhotoListActivity extends AppCompatActivity implements PhotoItemCli
         ActivityPhotoListBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_photo_list);
         PhotoListViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(PhotoListViewModel.class);
         binding.setLifecycleOwner(this);
+        binding.setViewModel(viewModel);
 
         viewModel.getAllPhotos().observe(this, photoListItems -> updateRecyclerView(binding.recyclerView, photoListItems));
 

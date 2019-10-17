@@ -3,7 +3,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="adapter" type="com.sps.flickrfindr.adapters.PhotoListAdapter"/>
+        <import type="android.view.View"/>
+        <variable name="viewModel" type="com.sps.flickrfindr.PhotoListViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,12 +20,24 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
+        <ProgressBar
+                android:id="@+id/progress_horizontal"
+                android:indeterminateOnly="true"
+                android:minHeight="48dp"
+                android:maxHeight="48dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.isProgressBarVisible ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical"
-                android:adapter="@{adapter}"
                 app:layout_constraintStart_toStartOf="parent"
                 android:overScrollMode="ifContentScrolls"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar"
