@@ -13,6 +13,7 @@ import java.util.List;
 public class PhotoListViewModel extends ViewModel {
 
     public final MutableLiveData<Boolean> isProgressBarVisible = new MutableLiveData<>(false);
+    public final MutableLiveData<Boolean> didApiCallFail = new MutableLiveData<>(false);
 
     private final SchedulingUtil schedulingUtil;
     private final PhotoRepository photoRepository;
@@ -36,7 +37,11 @@ public class PhotoListViewModel extends ViewModel {
                                                .subscribe(photoList -> {
                                                    isProgressBarVisible.setValue(false);
                                                    photoItemsList.setValue(photoList);
-                                               }, Throwable::printStackTrace));
+                                               }, e -> {
+                                                   isProgressBarVisible.setValue(false);
+                                                   didApiCallFail.setValue(true);
+                                                   e.printStackTrace();
+                                               }));
     }
 
     LiveData<List<PhotoListItem>> getAllPhotos() {

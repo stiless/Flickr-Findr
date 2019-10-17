@@ -37,6 +37,7 @@ public class PhotoListActivity extends AppCompatActivity implements PhotoItemCli
         binding.setViewModel(viewModel);
 
         viewModel.getAllPhotos().observe(this, photoListItems -> updateRecyclerView(binding.recyclerView, photoListItems));
+        viewModel.didApiCallFail.observe(this, this::showError);
 
         if (hasNetworkConnection()) {
             Intent intent = getIntent();
@@ -95,5 +96,16 @@ public class PhotoListActivity extends AppCompatActivity implements PhotoItemCli
                 .setCancelable(true)
                 .create()
                 .show();
+    }
+
+    private void showError(boolean didApiFail) {
+        if (didApiFail) {
+            (new AlertDialog.Builder(this))
+                    .setTitle(R.string.generic_error_title)
+                    .setMessage(R.string.generic_error_body)
+                    .setCancelable(true)
+                    .create()
+                    .show();
+        }
     }
 }

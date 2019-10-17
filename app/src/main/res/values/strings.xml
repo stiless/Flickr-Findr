@@ -12,4 +12,6 @@
     <string name="yes_button">Yes</string>
     <string name="no_network_title">No Network Connection</string>
     <string name="no_network_body">Please try again when you have network connectivity</string>
+    <string name="generic_error_title">Something Went Wrong</string>
+    <string name="generic_error_body">Please try again later</string>
 </resources>
