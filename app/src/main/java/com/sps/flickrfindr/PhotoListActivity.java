@@ -1,7 +1,10 @@
 package com.sps.flickrfindr;
 
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AlertDialog;
@@ -13,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sps.flickrfindr.adapters.PhotoListAdapter;
 import com.sps.flickrfindr.databinding.ActivityPhotoListBinding;
 import com.sps.flickrfindr.di.ViewModelFactory;
-
 import dagger.android.AndroidInjection;
 
 import javax.inject.Inject;
@@ -36,13 +38,17 @@ public class PhotoListActivity extends AppCompatActivity implements PhotoItemCli
 
         viewModel.getAllPhotos().observe(this, photoListItems -> updateRecyclerView(binding.recyclerView, photoListItems));
 
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setTitle(query);
+        if (hasNetworkConnection()) {
+            Intent intent = getIntent();
+            if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+                String query = intent.getStringExtra(SearchManager.QUERY);
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setTitle(query);
+                }
+                viewModel.performSearch(query);
             }
-            viewModel.performSearch(query);
+        } else {
+            showNoNetworkConnectionDialog();
         }
     }
 
@@ -68,5 +74,26 @@ public class PhotoListActivity extends AppCompatActivity implements PhotoItemCli
                     .create()
                     .show();
         }
+    }
+
+    private boolean hasNetworkConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        boolean hasConnection = false;
+        if (connectivityManager != null) {
+            NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+            hasConnection = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        }
+
+        return hasConnection;
+    }
+
+    private void showNoNetworkConnectionDialog() {
+        (new AlertDialog.Builder(this))
+                .setTitle(R.string.no_network_title)
+                .setMessage(R.string.no_network_body)
+                .setCancelable(true)
+                .create()
+                .show();
     }
 }

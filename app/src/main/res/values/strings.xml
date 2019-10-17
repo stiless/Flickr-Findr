@@ -10,4 +10,6 @@
     <string name="history_delete_confirmation_body">Are you sure you want to delete %s from your search history?</string>
     <string name="no_button">No</string>
     <string name="yes_button">Yes</string>
+    <string name="no_network_title">No Network Connection</string>
+    <string name="no_network_body">Please try again when you have network connectivity</string>
 </resources>

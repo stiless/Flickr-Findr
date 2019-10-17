@@ -12,13 +12,13 @@ import java.util.List;
 
 public class PhotoListViewModel extends ViewModel {
 
-    public MutableLiveData<Boolean> isProgressBarVisible = new MutableLiveData<>(false);
+    public final MutableLiveData<Boolean> isProgressBarVisible = new MutableLiveData<>(false);
 
     private final SchedulingUtil schedulingUtil;
     private final PhotoRepository photoRepository;
     private final SearchHistoryRepository searchHistoryRepository;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private MutableLiveData<List<PhotoListItem>> photoItemsList = new MutableLiveData<>();
+    private final MutableLiveData<List<PhotoListItem>> photoItemsList = new MutableLiveData<>();
 
     public PhotoListViewModel(SchedulingUtil schedulingUtil,
                               PhotoRepository photoRepository,
