@@ -20,6 +20,41 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/navigation_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <TextView
+                    android:id="@+id/previous_page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:onClick="@{() -> viewModel.previousPage()}"
+                    android:visibility="@{viewModel.isPreviousLinkVisible ? View.VISIBLE : View.GONE}"
+                    android:text="@string/previous_label"/>
+
+            <TextView
+                    android:id="@+id/next_page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:onClick="@{() -> viewModel.nextPage()}"
+                    android:visibility="@{viewModel.isNextLinkVisible ? View.VISIBLE : View.GONE}"
+                    android:text="@string/next_label"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <ProgressBar
                 android:id="@+id/progress_horizontal"
                 android:indeterminateOnly="true"
@@ -37,10 +72,11 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:scrollbars="vertical"
                 app:layout_constraintStart_toStartOf="parent"
                 android:overScrollMode="ifContentScrolls"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintTop_toBottomOf="@+id/navigation_bar"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

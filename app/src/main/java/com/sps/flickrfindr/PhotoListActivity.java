@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.sps.flickrfindr.adapters.PhotoListAdapter;
 import com.sps.flickrfindr.databinding.ActivityPhotoListBinding;
 import com.sps.flickrfindr.di.ViewModelFactory;
@@ -36,7 +35,11 @@ public class PhotoListActivity extends AppCompatActivity implements PhotoItemCli
         binding.setLifecycleOwner(this);
         binding.setViewModel(viewModel);
 
-        viewModel.getAllPhotos().observe(this, photoListItems -> updateRecyclerView(binding.recyclerView, photoListItems));
+        PhotoListAdapter adapter = new PhotoListAdapter(this);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerView.setAdapter(adapter);
+
+        viewModel.photoItemsList.observe(this, photoListItems -> updateRecyclerView(adapter, photoListItems));
         viewModel.didApiCallFail.observe(this, this::showError);
 
         if (hasNetworkConnection()) {
@@ -46,7 +49,7 @@ public class PhotoListActivity extends AppCompatActivity implements PhotoItemCli
                 if (getSupportActionBar() != null) {
                     getSupportActionBar().setTitle(query);
                 }
-                viewModel.performSearch(query);
+                viewModel.performSearch(query, 1);
             }
         } else {
             showNoNetworkConnectionDialog();
@@ -61,12 +64,9 @@ public class PhotoListActivity extends AppCompatActivity implements PhotoItemCli
         startActivity(intent);
     }
 
-    private void updateRecyclerView(RecyclerView recyclerView, List<PhotoListItem> photoListItems) {
+    private void updateRecyclerView(PhotoListAdapter adapter, List<PhotoListItem> photoListItems) {
         if (photoListItems.size() > 0) {
-            PhotoListAdapter adapter = new PhotoListAdapter(photoListItems, this);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+            adapter.setPhotoList(photoListItems);
         } else {
             (new AlertDialog.Builder(this))
                     .setTitle(R.string.no_results_found_title)

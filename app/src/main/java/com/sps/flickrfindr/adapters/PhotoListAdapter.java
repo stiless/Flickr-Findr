@@ -8,15 +8,16 @@ import com.sps.flickrfindr.PhotoItemClickListener;
 import com.sps.flickrfindr.PhotoListItem;
 import com.sps.flickrfindr.databinding.ItemPhotoBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.PhotoListViewHolder> {
 
-    private final List<PhotoListItem> photoList;
     private final PhotoItemClickListener clickListener;
 
-    public PhotoListAdapter(List<PhotoListItem> photoList, PhotoItemClickListener clickListener) {
-        this.photoList = photoList;
+    private List<PhotoListItem> photoList = new ArrayList<>();
+
+    public PhotoListAdapter(PhotoItemClickListener clickListener) {
         this.clickListener = clickListener;
     }
 
@@ -38,6 +39,12 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
     @Override
     public int getItemCount() {
         return photoList.size();
+    }
+
+    public void setPhotoList(List<PhotoListItem> photoList) {
+        this.photoList.clear();
+        this.photoList.addAll(photoList);
+        notifyDataSetChanged();
     }
 
     class PhotoListViewHolder extends RecyclerView.ViewHolder {

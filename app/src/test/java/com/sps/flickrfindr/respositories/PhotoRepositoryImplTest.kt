@@ -17,7 +17,7 @@ class PhotoRepositoryImplTest {
         every { service.getPhotosWithSearch(any()) } returns Single.just(mockk())
         val repository = PhotoRepositoryImpl(service)
 
-        repository.getPhotos("dogs").test()
+        repository.getPhotos("dogs", 1).test()
 
         verify {
             service.getPhotosWithSearch("dogs")
@@ -41,7 +41,7 @@ class PhotoRepositoryImplTest {
         )
         val repository = PhotoRepositoryImpl(service)
 
-        repository.getPhotos("dogs").test()
+        repository.getPhotos("dogs", 1).test()
 
         verify {
             service.getPhotoSizes("1")
@@ -56,7 +56,7 @@ class PhotoRepositoryImplTest {
         every { service.getPhotosWithSearch(any()) } returns Single.error(throwable)
         val repository = PhotoRepositoryImpl(service)
 
-        val subscriber = repository.getPhotos("dogs").test()
+        val subscriber = repository.getPhotos("dogs", 1).test()
 
         subscriber.assertError(throwable)
     }
@@ -74,7 +74,7 @@ class PhotoRepositoryImplTest {
         every { service.getPhotoSizes(any()) } returns Single.error(throwable)
         val repository = PhotoRepositoryImpl(service)
 
-        val subscriber = repository.getPhotos("dogs").test()
+        val subscriber = repository.getPhotos("dogs", 1).test()
 
         subscriber.assertError(throwable)
     }
@@ -96,7 +96,7 @@ class PhotoRepositoryImplTest {
         )
         val repository = PhotoRepositoryImpl(service)
 
-        val subscriber = repository.getPhotos("dogs").test()
+        val subscriber = repository.getPhotos("dogs", 1).test()
 
         subscriber.assertValue(
             listOf(
