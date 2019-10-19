@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable name="viewModel" type="com.sps.flickrfindr.PhotoListViewModel"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".PhotoListActivity">
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/navigation_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <TextView
+                    android:id="@+id/previous_page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:onClick="@{() -> viewModel.previousPage()}"
+                    android:visibility="@{viewModel.isPreviousLinkVisible ? View.VISIBLE : View.GONE}"
+                    android:text="@string/previous_label"/>
+
+            <TextView
+                    android:id="@+id/next_page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:onClick="@{() -> viewModel.nextPage()}"
+                    android:visibility="@{viewModel.isNextLinkVisible ? View.VISIBLE : View.GONE}"
+                    android:text="@string/next_label"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+                android:id="@+id/progress_horizontal"
+                android:indeterminateOnly="true"
+                android:minHeight="48dp"
+                android:maxHeight="48dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.isProgressBarVisible ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scrollbars="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                android:overScrollMode="ifContentScrolls"
+                app:layout_constraintTop_toBottomOf="@+id/navigation_bar"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
