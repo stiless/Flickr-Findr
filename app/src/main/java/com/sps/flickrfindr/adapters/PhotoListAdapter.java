@@ -15,7 +15,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
 
     private final PhotoItemClickListener clickListener;
 
-    private List<PhotoListItem> photoList = new ArrayList<>();
+    private final List<PhotoListItem> photoList = new ArrayList<>();
 
     public PhotoListAdapter(PhotoItemClickListener clickListener) {
         this.clickListener = clickListener;
@@ -33,7 +33,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
     public void onBindViewHolder(@NonNull PhotoListViewHolder holder, int position) {
         PhotoListItem item = photoList.get(position);
         holder.bind(item);
-        holder.binding.photoItemContainer.setOnClickListener(view -> clickListener.onClick(view, item.getImageUrl(), item.getTitle()));
+        holder.binding.photoItemContainer.setOnClickListener(view -> clickListener.onClick(view, item.getImageLocation(), item.getTitle()));
     }
 
     @Override

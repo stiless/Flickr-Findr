@@ -28,7 +28,7 @@ public class PhotoListViewModelTest {
         SearchHistoryRepository searchHistoryRepository = mock(SearchHistoryRepository.class);
         when(schedulingUtil.singleSchedulers()).thenReturn(single -> single);
         PhotoRepository photoRepository = mock(PhotoRepository.class);
-        List<PhotoListItem> photoList = Arrays.asList(new PhotoListItem("th", "or", "title"), new PhotoListItem("th", "or", "title"));
+        List<PhotoListItem> photoList = Arrays.asList(new PhotoListItem("or", "title"), new PhotoListItem("or", "title"));
         when(photoRepository.getPhotos("dog", 1)).thenReturn(Single.just(photoList));
         PhotoListViewModel viewModel = new PhotoListViewModel(schedulingUtil, photoRepository, searchHistoryRepository);
 
@@ -43,7 +43,7 @@ public class PhotoListViewModelTest {
         SearchHistoryRepository searchHistoryRepository = mock(SearchHistoryRepository.class);
         when(schedulingUtil.singleSchedulers()).thenReturn(single -> single);
         PhotoRepository photoRepository = mock(PhotoRepository.class);
-        List<PhotoListItem> photoList = Arrays.asList(new PhotoListItem("th", "or", "title"), new PhotoListItem("th", "or", "title"));
+        List<PhotoListItem> photoList = Arrays.asList(new PhotoListItem("or", "title"), new PhotoListItem("or", "title"));
         when(photoRepository.getPhotos("dog", 1)).thenReturn(Single.just(photoList));
         PhotoListViewModel viewModel = new PhotoListViewModel(schedulingUtil, photoRepository, searchHistoryRepository);
 
@@ -58,7 +58,7 @@ public class PhotoListViewModelTest {
         SearchHistoryRepository searchHistoryRepository = mock(SearchHistoryRepository.class);
         when(schedulingUtil.singleSchedulers()).thenReturn(single -> single);
         PhotoRepository photoRepository = mock(PhotoRepository.class);
-        List<PhotoListItem> photoList = Arrays.asList(new PhotoListItem("th", "or", "title"), new PhotoListItem("th", "or", "title"));
+        List<PhotoListItem> photoList = Arrays.asList(new PhotoListItem("or", "title"), new PhotoListItem("or", "title"));
         when(photoRepository.getPhotos("dog", 1)).thenReturn(Single.just(photoList));
         Observer observer = mock(Observer.class);
         PhotoListViewModel viewModel = new PhotoListViewModel(schedulingUtil, photoRepository, searchHistoryRepository);
@@ -68,6 +68,6 @@ public class PhotoListViewModelTest {
 
         ArgumentCaptor<List> captor = ArgumentCaptor.forClass(List.class);
         verify(observer).onChanged(captor.capture());
-        assertThat(captor.getValue()).isEqualTo(Arrays.asList(new PhotoListItem("th", "or", "title"), new PhotoListItem("th", "or", "title")));
+        assertThat(captor.getValue()).isEqualTo(Arrays.asList(new PhotoListItem("or", "title"), new PhotoListItem("or", "title")));
     }
 }

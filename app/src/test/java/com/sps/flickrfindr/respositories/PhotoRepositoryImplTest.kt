@@ -100,8 +100,8 @@ class PhotoRepositoryImplTest {
 
         subscriber.assertValue(
             listOf(
-                PhotoListItem("thumbnail1", "original1", "photo1"),
-                PhotoListItem("thumbnail2", "original2", "photo2")
+                PhotoListItem("original1", "photo1"),
+                PhotoListItem("original2", "photo2")
             )
         )
     }

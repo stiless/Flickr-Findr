@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity(), SearchHistoryItemClickListener, Delete
     private fun updateRecyclerView(recyclerView: RecyclerView, searchHistory: List<String>) {
         val adapter = SearchHistoryAdapter(searchHistory, this, this)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter;
+        recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
     }
 }

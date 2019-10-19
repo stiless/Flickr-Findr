@@ -11,7 +11,7 @@ import java.util.List;
 public class MainViewModel extends ViewModel {
 
     private final SearchHistoryRepository searchHistoryRepository;
-    private MutableLiveData<List<String>> searchHistory = new MutableLiveData<>();
+    private final MutableLiveData<List<String>> searchHistory = new MutableLiveData<>();
 
     public MainViewModel(SearchHistoryRepository searchHistoryRepository) {
         this.searchHistoryRepository = searchHistoryRepository;

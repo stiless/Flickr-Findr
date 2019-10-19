@@ -13,8 +13,8 @@ class PhotoRepositoryImpl(private val serviceImpl: FlickrService) : PhotoReposit
                 serviceImpl.getPhotoSizes(photo.id)
                     .map {
                         PhotoListItem(
-                            it.sizes.size.first().source,
-                            it.sizes.size.last().source, photo.title
+                            it.sizes.size.last().source,
+                            photo.title
                         )
                     }
             }
