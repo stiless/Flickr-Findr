@@ -3,6 +3,7 @@
     <string name="app_label">Flickr Findr</string>
     <string name="search_hint">Search For Photos</string>
     <string name="search_view">Search For Photos</string>
+    <string name="bookmarks">Bookmarks</string>
     <string name="title_activity_photo">PhotoActivity</string>
     <string name="no_results_found_title">No results found</string>
     <string name="no_results_found_body">Please try another search</string>
@@ -16,4 +17,7 @@
     <string name="generic_error_body">Please try again later</string>
     <string name="previous_label">Previous</string>
     <string name="next_label">Next</string>
+    <string name="save_for_later_label">Save For Later</string>
+    <string name="successful_save_photo">Photo saved successfully</string>
+    <string name="error_save_photo">Error saving photo</string>
 </resources>

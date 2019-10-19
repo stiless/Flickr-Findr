@@ -61,6 +61,7 @@ public class PhotoListActivity extends AppCompatActivity implements PhotoItemCli
         Intent intent = new Intent(this, PhotoActivity.class);
         intent.putExtra("URL", imageUrl);
         intent.putExtra("TITLE", title);
+        intent.putExtra("SHOW_SAVE_BUTTON", true);
         startActivity(intent);
     }
 

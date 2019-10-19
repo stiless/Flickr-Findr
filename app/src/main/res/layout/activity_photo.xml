@@ -5,12 +5,16 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
                 name="url"
                 type="java.lang.String"/>
         <variable
                 name="title"
                 type="java.lang.String"/>
+        <variable
+                name="isSaveButtonVisible"
+                type="java.lang.Boolean"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -29,11 +33,25 @@
                 android:src="@drawable/ic_back_arrow"
                 app:layout_constraintStart_toStartOf="parent"/>
 
+        <TextView
+                android:id="@+id/save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:onClick="saveImage"
+                android:visibility="@{isSaveButtonVisible ? View.VISIBLE : View.GONE}"
+                android:text="@string/save_for_later_label"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
         <ImageView
+                android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginTop="10dp"
                 bind:imageUrl="@{url}"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_constraintTop_toBottomOf="@id/save_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

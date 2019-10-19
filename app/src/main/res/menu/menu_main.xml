@@ -8,4 +8,7 @@
             android:title="@string/search_view"
             app:actionViewClass="androidx.appcompat.widget.SearchView"
             app:showAsAction="collapseActionView|ifRoom" />
+    <item
+            android:id="@+id/bookmarks"
+            android:title="@string/bookmarks"/>
 </menu>

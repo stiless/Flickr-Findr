@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="item"
+                type="com.sps.flickrfindr.BookmarkListItem"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bookmarkContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+        <ImageView
+                android:id="@+id/photo_thumbnail"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                bind:imageUrl="@{item.imageLocation}"
+                android:layout_margin="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_launcher_background"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="@{item.title}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/photo_thumbnail"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="fjds flsdjf ldjlfj adslfjld jfljdslf ldskjafkldsjf daklfj ldskjflksd jfjdks jfkldajs flkjdlkfj lasjfk dklfj laksdjflkdsjlf asdklf sdjf"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

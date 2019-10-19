@@ -41,7 +41,7 @@ public class PhotoListViewModel extends ViewModel {
                                                .compose(schedulingUtil.singleSchedulers())
                                                .subscribe(photoList -> {
                                                    isPreviousLinkVisible.setValue(page > 1);
-                                                   isNextLinkVisible.setValue(true);
+                                                   isNextLinkVisible.setValue(photoList.size() > 0);
                                                    isProgressBarVisible.setValue(false);
                                                    photoItemsList.setValue(photoList);
                                                }, e -> {
